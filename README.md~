@@ -1,11 +1,8 @@
 template012
 ===========
-single direction scroller/shooter 
+single direction scroller 
 
-![alt tag](http://kata.coderdojo.com/images/0/01/Dojo_racer_battle.png)
-
-
-Because of canvas rotation using translate and transform. I want to build three different but similar shoot em ups to examine the 
+Because of canavs rotation using translate and transform. I want to build three different but similar shoot em ups to examine the 
 obstacles etc. See also twemplate 011 and Template 013
 
 The spaceship will face right facing at all times. Pressing left will slow ship 
