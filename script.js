@@ -14,14 +14,16 @@
     //var canvas = document.getElementById("myCanvas");
     //var context = canvas.getContext("2d");
     var  canvas, context, toggle;
-    var y= 220;
-    var x= 0;
+    var y= 50;
+    var x= 170;
     var mid = 128;
     var dirX = 1;
     var dirY = 1;
-    var destX=1 ;
-    var destY=1 ;
+    var destX = 200 ;
+    var destY = 200;
     var i;
+    var speed=1;
+    var move;
     var state ;
     var inbounds='true';
     var status = -1; // -1: stopped  , 0 In play	
@@ -63,22 +65,15 @@
     // align text vertically center
     context.textBaseline = "middle";	
     //context.font = "12pt Calibri"; 
-
-    canvas.width = 8248;
     context.drawImage(background_obj, backg_x, backg_y);
-    imageData = context.getImageData(0,0,8248,400); //fnord
-     	    
     //var x = document;
     canvas.width = 568;
-
     $( "#container" ).append( canvas );
         //}
     animate();
 
 
-   if (bulletReady) {
-	        context.drawImage(bulletImage, bullet.x, bullet.y);
-	    }
+
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
     function animate()
     {
@@ -115,6 +110,7 @@
     function update()
     {
         context.fillText( state + ":" , canvas.width / 2 , canvas.height / 2 );
+	    
 	    $(document).keyup(function(e)
 	    {
 		    if (e.keyCode == 37)
@@ -134,6 +130,10 @@
 			    jump = 'descend';
 		    }
         });
+        
+        
+        
+        
 	    $(document).keydown(function(e) {
 	    //alert (e.keyCode);
 	    //if space start/stop gameloop
@@ -147,7 +147,12 @@
 		}
 	    if (e.keyCode == 38 )
 		{
-            state = 'up';
+            move = 'true';
+			
+			
+			
+		
+	
 		}
 		if (e.keyCode == 40)
 		{
@@ -167,28 +172,31 @@
 	       {
 	       	    // x = x-(1 * dirX);
 	       	    // backg_x = backg_x + 1 ;
-	       	    degrees = degrees - 1;
+	       	    degrees = degrees - 1.5;
 	            //	context.setTransform(1,0.5,-0.5,10,10);
 	       }
 		if (state == 'right')
 		    {
       		//x		= x + (1 * dirX);
 	      	//	backg_x = backg_x - 1 ;
-	      		degrees = degrees +1 ;
+	      		degrees = degrees +1.5 ;
 	      	//	context.setTransform(1,0.5,-0.5,1,10,10);
 		    }
-		if (state == 'up')
+		if (move == 'true')
 		    {
-				    y = y + 1;
+				    
+				    x +=   speed * Math.cos(degrees * Math.PI / 180);
+                    y -=   speed * Math.sin(degrees * Math.PI / 180);
+				   
 		    }
 		if (state == 'down')
 		    {
-			    y = y - 1;
-			    if (y == 0)
-			    {
-				    jump = 'rest';
-			    }
-		    }
+		//	    y = y - 1;
+		//	    if (y == 0)
+		//	    {
+		//		    jump = 'rest';
+		//	    }
+		   }
 		if (inbounds=='true')
 		    {
 			    destX = (canvas.width / 2 ) + x;
@@ -210,21 +218,35 @@
 		    context.clearRect(0,0 , canvas.width, canvas.height);
 		    // move the rotation point to the center of the rect
             //   context.translate( destX, destY );
-	        // rotate the rect
-	        //context.rotate(50*Math.PI/180);
 	     
-		    context.drawImage(background_obj, backg_x, backg_y);
+		    
+		    
+		    
+		    
+		    
+		    context.drawImage(background_obj, backg_x+20, backg_y);
             context.save();
             context.beginPath();
 	     	context.translate( destX,destY);
 	     	//context.translate( 200,200);
-            // rotate the rect
+            
             context.rotate(degrees*Math.PI/180);
-		    //context.drawImage(imageObj, 10, 10);
-		    context.drawImage(imageObj, destX-200, destY-200);
+           
+            context.translate( -40,-25);
+		    context.drawImage(imageObj, 0, 0);
      		context.restore();
+		    
+		    
+
+		    
+		    
+		    
+		    if (bulletReady) {
+	            context.drawImage(bulletImage, bullet.x, bullet.y);
+	        }
+	    
 		    str = "width=" + imageData.width + " height=" +	imageData.height 
-		    //+ " red :" + red  + " green :" + green + " blue :" + blue  
+ 
 		    + " destX :" + parseInt(0-backg_x)  + " destY :" +destY 
 		    + " inbounds:" + inbounds  
 		    + " float: " + floating + " jump : " + jump;
