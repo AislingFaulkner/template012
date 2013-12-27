@@ -38,7 +38,6 @@
     var degrees = 0;
     var str;
     var name;
-    //init();
     var dir = 1;
     var monster = {};
     var origin = {};
@@ -58,9 +57,6 @@
     canvas.width = 568;
     canvas.height = 400;
     context = canvas.getContext( '2d' );
-    // context.font = "40pt Calibri";
-    // context.fillStyle = "white";
-    // align text horizontally center
     context.textAlign = "center";
     // align text vertically center
     context.textBaseline = "middle";	
@@ -70,9 +66,8 @@
     canvas.width = 568;
     $( "#container" ).append( canvas );
         //}
+
     animate();
-
-
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
     function animate()
@@ -98,7 +93,7 @@
             bullet.x += bullet.speed  * 4;
         }
 
-      //distance = square root sqrt  of ( (x2-x1)^2 + (y2-y1)^2)
+//////////      distance = square root sqrt  of ( (x2-x1)^2 + (y2-y1)^2)   ////////////////////////////////////////
         var distance = Math.sqrt(    Math.pow(bullet.x - x, 2) + Math.pow(bullet.y - y,2) );
         if (distance > 200)
         {
@@ -106,7 +101,7 @@
             first = true
         }
     }
-////////
+
     function update()
     {
         context.fillText( state + ":" , canvas.width / 2 , canvas.height / 2 );
@@ -131,13 +126,8 @@
 		    }
         });
         
-        
-        
-        
 	    $(document).keydown(function(e) {
-	    //alert (e.keyCode);
-	    //if space start/stop gameloop
-	    //var time = new Date().getTime() * 0.002;
+
         if(e.keyCode == 32)
 		{
 		    status = 0 - status;
@@ -148,11 +138,6 @@
 	    if (e.keyCode == 38 )
 		{
             move = 'true';
-			
-			
-			
-		
-	
 		}
 		if (e.keyCode == 40)
 		{
@@ -164,38 +149,26 @@
 		}
 		if (e.keyCode == 39)
 		{
-			    state = 'right';
+			state = 'right';
 		}
 	});
 ///////////////////////////////////////////////////////////////////////////////
 	    if (state == 'left')
 	       {
-	       	    // x = x-(1 * dirX);
-	       	    // backg_x = backg_x + 1 ;
 	       	    degrees = degrees - 1.5;
-	            //	context.setTransform(1,0.5,-0.5,10,10);
 	       }
 		if (state == 'right')
 		    {
-      		//x		= x + (1 * dirX);
-	      	//	backg_x = backg_x - 1 ;
 	      		degrees = degrees +1.5 ;
-	      	//	context.setTransform(1,0.5,-0.5,1,10,10);
 		    }
 		if (move == 'true')
 		    {
-				    
 				    x +=   speed * Math.cos(degrees * Math.PI / 180);
                     y -=   speed * Math.sin(degrees * Math.PI / 180);
-				   
 		    }
 		if (state == 'down')
 		    {
-		//	    y = y - 1;
-		//	    if (y == 0)
-		//	    {
-		//		    jump = 'rest';
-		//	    }
+
 		   }
 		if (inbounds=='true')
 		    {
@@ -218,28 +191,17 @@
 		    context.clearRect(0,0 , canvas.width, canvas.height);
 		    // move the rotation point to the center of the rect
             //   context.translate( destX, destY );
-	     
-		    
-		    
-		    
-		    
 		    
 		    context.drawImage(background_obj, backg_x+20, backg_y);
             context.save();
             context.beginPath();
 	     	context.translate( destX,destY);
-	     	//context.translate( 200,200);
-            
+          
             context.rotate(degrees*Math.PI/180);
            
             context.translate( -40,-25);
 		    context.drawImage(imageObj, 0, 0);
      		context.restore();
-		    
-		    
-
-		    
-		    
 		    
 		    if (bulletReady) {
 	            context.drawImage(bulletImage, bullet.x, bullet.y);
